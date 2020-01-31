@@ -43,7 +43,7 @@ A tool to perform static analysis and feature extraction on Portable Executable 
 
 #### Get PEgreet
 ```
-git clone __myrepolink__
+git clone https://github.com/patrickarmengol/PEgreet.git
 cd PEgreet
 ```
 

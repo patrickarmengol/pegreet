@@ -1,6 +1,8 @@
 # PEgreet
 
-A tool to perform static analysis and feature extraction on Portable Executable files.
+Let your sample introduce itself before you tear it apart.
+
+PEgreet is a tool that performs static analysis and feature extraction on Portable Executable files. It is meant to be the first step in analyzing a malware sample.
 
 ## Features
 

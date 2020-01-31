@@ -106,6 +106,7 @@ def dump_header_info():
     # subsystem
     print('{:<20}{:<}'.format('subsystem:', pefile.SUBSYSTEM_TYPE[pe.OPTIONAL_HEADER.Subsystem][16:]))
 
+    # todo: add comparison to size on disk
     # image size
     print('{:<20}{:<}'.format('image size:', hex(pe.OPTIONAL_HEADER.SizeOfImage)))
 

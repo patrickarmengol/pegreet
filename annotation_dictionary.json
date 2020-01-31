@@ -1,0 +1,546 @@
+{
+    "AdjustTokenPriveleges": {
+        "category": "security",
+        "description": "enables/disables privileges in access token; used in privilege escalation"
+    },
+    "AttachThreadInput": {
+        "category": "process",
+        "description": "attaches/detaches the input processing of one thread to another; used in keyloggers/spyware"
+    },
+    "BitBlt": {
+        "category": "data",
+        "description": "bit block transfer of graphic data; used in spyware for screencaps"
+    },
+    "CallNextHook": {
+        "category": "system",
+        "description": "calls the next hook in the chain; event hook set by SetWindowsHookEx"
+    },
+    "CertOpenSystemStore": {
+        "category": "security",
+        "description": "accesses the certificates stored on the local system"
+    },
+    "CheckRemoteDebuggerPresent": {
+        "category": "anti-analysis",
+        "description": "checks if a process is being debugged"
+    },
+    "CoInitialize": {
+        "category": "system",
+        "description": "initializes the COM library"
+    },
+    "CoCreateInstance": {
+        "category": "system",
+        "description": "creates a COM object; CLSID denotes which file contains code to implement the object"
+    },
+    "ConnectNamedPipe": {
+        "category": "data",
+        "description": "enables a server pipe for interprocess communication; used in backdoors"
+    },
+    "ControlService": {
+        "category": "system",
+        "description": "starts, stops, modifies, or sends a control code to a service"
+    },
+    "StartService": {
+        "category": "system",
+        "description": "starts a service"
+    },
+    "ChangeServiceConfig": {
+        "category": "system",
+        "description": "changes the configuration of a service"
+    },
+    "CreateFile": {
+        "category": "file",
+        "description": "creates or opens a file or I/O device"
+    },
+    "TerminateProcess": {
+        "category": "process",
+        "description": "murders a process in cold blood"
+    },
+    "accept": {
+        "category": "network",
+        "description": "listens for incoming connections on a socket; used in c2"
+    },
+    "bind": {
+        "category": "network",
+        "description": "associates a local address with a socket; used in c2"
+    },
+    "connect": {
+        "category": "network",
+        "description": "establishes a connection to a specified socket; used in c2"
+    },
+    "CreateFileMapping": {
+        "category": "file",
+        "description": "creates a handle to a file mapping that loads a file into memory; used in launchers, loaders, injection"
+    },
+    "CreateMutex": {
+        "category": "system",
+        "description": "creates a mutual exclusion object; used by malware for deduplication"
+    },
+    "CreateProcess": {
+        "category": "process",
+        "description": "creates and launches a new process"
+    },
+    "CreateRemoteThread": {
+        "category": "process",
+        "description": "start a thread in a remote process; used in launchers and injection"
+    },
+    "CreateService": {
+        "category": "system",
+        "description": "creates a service; used for persistence, stealth, or loading kernel drivers"
+    },
+    "CreateToolhelp32Snapshot": {
+        "category": "process",
+        "description": "creates a snapshot of processes, heaps, threads, and modules; used to iterate through processes and threads"
+    },
+    "CryptAcquireContext": {
+        "category": "data",
+        "description": "initializes use of Windows encryption"
+    },
+    "DeviceIoControl": {
+        "category": "device",
+        "description": "sends a control message from user-space to a device driver; used in kernel malware"
+    },
+    "DllCanUnloadNow": {
+        "category": "system",
+        "description": "an exported function that indicates that the program implements a COM server"
+    },
+    "DllGetClassObject": {
+        "category": "system",
+        "description": "an exported function that indicates that the program implements a COM server"
+    },
+    "DllInstall": {
+        "category": "system",
+        "description": "an exported function that indicates that the program implements a COM server"
+    },
+    "DllRegisterServer": {
+        "category": "system",
+        "description": "an exported function that indicates that the program implements a COM server"
+    },
+    "DllUnregisterServer": {
+        "category": "system",
+        "description": "an exported function that indicates that the program implements a COM server"
+    },
+    "EnableExecuteProtectionSupport": {
+        "category": "security",
+        "description": "modifies the Data Execution Protection (DEP) settings of the host"
+    },
+    "EnumProcesses": {
+        "category": "process",
+        "description": "enumerates running processes; used to find target for injection"
+    },
+    "EnumProcessModules": {
+        "category": "process",
+        "description": "enumerates loaded modules for a given process; used in injection"
+    },
+    "FindFirstFile": {
+        "category": "file",
+        "description": "used to search through a directory"
+    },
+    "FindNextFile": {
+        "category": "file",
+        "description": "used to search through a directory"
+    },
+    "FindResource": {
+        "category": "process",
+        "description": "finds a resource in a PE file; used in droppers"
+    },
+    "FindWindow": {
+        "category": "window",
+        "description": "finds an open window on the desktop; used in anti-debugging"
+    },
+    "FtpPutFile": {
+        "category": "network",
+        "description": "uploads a file to a remote FTP server"
+    },
+    "GetAdaptersInfo": {
+        "category": "network",
+        "description": "gets information about the system's network adapters; used in fingerprinting and anti-vm (MAC addr check)"
+    },
+    "GetAsyncKeyState": {
+        "category": "system",
+        "description": "queries whether a particular key is being pressed  / was pressed since previous call; used in keyloggers"
+    },
+    "GetDC": {
+        "category": "window",
+        "description": "gets a handle to a device context for a window or screen; used in spyware for screencaps"
+    },
+    "GetWindowDC": {
+        "category": "window",
+        "description": "gets a handle to a device context for a window; used in spyware for screencaps"
+    },
+    "GetForegroundWindow": {
+        "category": "window",
+        "description": "gets a handle to the window currently in the foreground; used in keyloggers"
+    },
+    "gethostbyname": {
+        "category": "network",
+        "description": "performs DNS lookup on a hostname"
+    },
+    "gethostname": {
+        "category": "network",
+        "description": "gets hostname of the computer; used in backdoors and fingerprinting"
+    },
+    "GetKeyState": {
+        "category": "system",
+        "description": "queries whether a particular key is being pressed;"
+    },
+    "GetModuleFilename": {
+        "category": "process",
+        "description": "gets the filename of a loaded module; used to modify/copy files in the process"
+    },
+    "GetModuleHandle": {
+        "category": "process",
+        "description": "gets a handle to a loaded module; used to locate/modify/inject code"
+    },
+    "GetProcAddress": {
+        "category": "process",
+        "description": "gets address of a function in a loaded DLL; used to import functions from other DLLs"
+    },
+    "GetStartupInfo": {
+        "category": "process",
+        "description": "gets details about how the current process is configured to run"
+    },
+    "GetSystemDefaultLangId": {
+        "category": "system",
+        "description": "gets default language settings for the system; used in fingerprinting and custom displays"
+    },
+    "GetTempPath": {
+        "category": "file",
+        "description": "gets the system's temporary file path"
+    },
+    "GetThreadContext": {
+        "category": "process",
+        "description": "gets the context structure for a given thread; contains info like reg values and current state"
+    },
+    "GetTickCount": {
+        "category": "system",
+        "description": "gets number of miliseconds since boot; used in anti-debugging; often included by compiler"
+    },
+    "GetTickCount64": {
+        "category": "system",
+        "description": "gets number of miliseconds since boot; used in anti-debugging; often included by compiler"
+    },
+    "GetVersion": {
+        "category": "system",
+        "description": "gets Windows version info; used in fingerprinting"
+    },
+    "GetWindowsDirectory": {
+        "category": "file",
+        "description": "gets path to the Windows directory"
+    },
+    "GetSystemDirectory": {
+        "category": "file",
+        "description": "gets path to the system directory"
+    },
+    "inet_addr": {
+        "category": "network",
+        "description": "converts a string containing an IPv4 address to an IN_ADDR struct"
+    },
+    "InternetOpen": {
+        "category": "network",
+        "description": "initializes internet access functions from WinINet"
+    },
+    "InternetOpenUrl": {
+        "category": "network",
+        "description": "opens a specified URL via FTP, HTTP, or HTTPS"
+    },
+    "InternetReadFile": {
+        "category": "network",
+        "description": "reads data from an opened URL"
+    },
+    "InternetWriteFile": {
+        "category": "network",
+        "description": "writes data to an opened URL"
+    },
+    "IsDebuggerPresent": {
+        "category": "system",
+        "description": "checks whether the process is being debugged; used in anti-debugging; often included by compiler"
+    },
+    "IsNTAdmin": {
+        "category": "security",
+        "description": "checks whether user has admin privileges"
+    },
+    "IsWow64Process": {
+        "category": "process",
+        "description": "checks whether specified process is 32b running in 64b Windows"
+    },
+    "LdrLoadDll": {
+        "category": "process",
+        "description": "loads a DLL into a process; typically done by LoadLibrary"
+    },
+    "LoadLibrary": {
+        "category": "process",
+        "description": "loads a DLL into a process"
+    },
+    "LoadResource": {
+        "category": "process",
+        "description": "loads a resource from a PE file into memory; used in droppers"
+    },
+    "LsaEnumerateLogonSessions": {
+        "category": "security",
+        "description": "enumerates logon sessions on the system; used in cred dumping"
+    },
+    "MapViewOfFile": {
+        "category": "file",
+        "description": "maps a file into memory; used by launchers, loaders, and injection"
+    },
+    "MapVirtualKey": {
+        "category": "system",
+        "description": "gets character value from a virtual-key code; used in keyloggers"
+    },
+    "MmGetSystemRoutineAddress": {
+        "category": "process",
+        "description": "gets the address of a function from another module included in ntoskrnl.exe or hal.dll (kernel)"
+    },
+    "Module32First": {
+        "category": "process",
+        "description": "used to enumerate loaded modules in a process; used in injection"
+    },
+    "Module32Next": {
+        "category": "process",
+        "description": "used to enumerate loaded modules in a process; used in injection"
+    },
+    "NetScheduleJobAdd": {
+        "category": "network",
+        "description": "creates a scheduled task (at job, so pre Windows 8); can be remote; used for persistence"
+    },
+    "NetShareEnum": {
+        "category": "network",
+        "description": "enumerates network shares"
+    },
+    "NtQueryDirectoryFile": {
+        "category": "file",
+        "description": "queries info about files in a directory; hooked by rootkits to hide files"
+    },
+    "NtQueryInformationProcess": {
+        "category": "process",
+        "description": "queries info about a process; used in anti-debugging"
+    },
+    "NtSetInformationProcess": {
+        "category": "security",
+        "description": "changes privilege level of process or bypasses Data Execution Protection (DEP)"
+    },
+    "OleInitialize": {
+        "category": "system",
+        "description": "initializes the COM library"
+    },
+    "OpenMutex": {
+        "category": "system",
+        "description": "opens a handle to a mutual exclusion object; used by malware for deduplication"
+    },
+    "OpenProcess": {
+        "category": "process",
+        "description": "opens a handle to a process; enables reading/writing/injection"
+    },
+    "OpenSCManager": {
+        "category": "system",
+        "description": "opens a handle to the service control manager; used for persistence"
+    },
+    "OutputDebugString": {
+        "category": "system",
+        "description": "outputs a string to a debugger; used in anti-debugging"
+    },
+    "PeekNamedPipe": {
+        "category": "data",
+        "description": "copies data from a named pipe without consuming it; used in backdoors"
+    },
+    "Process32First": {
+        "category": "process",
+        "description": "used to enumerate processes after a CreateToolhelp32Snapshot call; used to find injection target"
+    },
+    "Process32Next": {
+        "category": "process",
+        "description": "used to enumerate processes after a CreateToolhelp32Snapshot call; used to find injection target"
+    },
+    "QueryPerformanceCounter": {
+        "category": "system",
+        "description": "gets value of hardware-based performance counter; used in anti-debugging"
+    },
+    "QueryUserAPC": {
+        "category": "process",
+        "description": "adds asynchronous procedure call (APC) to the queue of a thread; used in injection"
+    },
+    "ReadProcessMemory": {
+        "category": "process",
+        "description": "reads the memory of another process"
+    },
+    "recv": {
+        "category": "network",
+        "description": "receives data from a socket; used in backdoors"
+    },
+    "RegisterHotKey": {
+        "category": "system",
+        "description": "registers a handler for a key combination; used in keyloggers"
+    },
+    "RegOpenKey": {
+        "category": "registry",
+        "description": "opens a handle to a registry key"
+    },
+    "RegSetValue": {
+        "category": "registry",
+        "description": "sets a value for a registry key"
+    },
+    "RegGetValue": {
+        "category": "registry",
+        "description": "gets the value for a specified registry key"
+    },
+    "RegQueryValue": {
+        "category": "registry",
+        "description": "gets the value for a specified registry key"
+    },
+    "ResumeThread": {
+        "category": "process",
+        "description": "resumes the execution of a suspended thread; used in injection"
+    },
+    "RtlCreateRegistryKey": {
+        "category": "registry",
+        "description": "creates a registry key from kernel space"
+    },
+    "RtlWriteRegistryValue": {
+        "category": "registry",
+        "description": "writes a value to a registry key from kernel space"
+    },
+    "SamIConnect": {
+        "category": "security",
+        "description": "initializes connection to the Security Account Manager (SAM) DB; used in cred dumping"
+    },
+    "SamIGetPrivateData": {
+        "category": "security",
+        "description": "gets private info about a user from the Security Account Manager (SAM) DB; used in cred dumping"
+    },
+    "SamQueryInformationUse": {
+        "category": "security",
+        "description": "gets info about a user from the Security Account Manager (SAM) DB; used in cred dumping"
+    },
+    "send": {
+        "category": "network",
+        "description": "sends data to a socket; used in backdoors and C2"
+    },
+    "SetFileTime": {
+        "category": "file",
+        "description": "modifies MACB timestamps of a file; timestomping"
+    },
+    "SetThreadContext": {
+        "category": "process",
+        "description": "sets the context for a thread; used in injection"
+    },
+    "SetWindowsHook": {
+        "category": "process",
+        "description": "sets a hook function to be triggered by a specified event; used in keyloggers"
+    },
+    "SfcTerminateWatcherThread": {
+        "category": "file",
+        "description": "disables Windows file protection"
+    },
+    "SfcFileException": {
+        "category": "file",
+        "description": "disables Windows file protection"
+    },
+    "ShellExecute": {
+        "category": "process",
+        "description": "launches a program"
+    },
+    "StartServiceCtrlDispatcher": {
+        "category": "process",
+        "description": "connects the main thread of a service process to the service control manager"
+    },
+    "SuspendThread": {
+        "category": "process",
+        "description": "suspends a thread; used in code injection"
+    },
+    "system": {
+        "category": "system",
+        "description": "launches a program; wrapper to CreateProcess"
+    },
+    "Thread32First": {
+        "category": "process",
+        "description": "used to enumerate through process threads; used in injection"
+    },
+    "Thread32Next": {
+        "category": "process",
+        "description": "used to enumerate through process threads; used in injection"
+    },
+    "Toolhelp32ReadProcessMemory": {
+        "category": "process",
+        "description": "copies memory from a remote process into a buffer"
+    },
+    "URLDownloadToFile": {
+        "category": "network",
+        "description": "downloads a file from a web server and saves it to disk; used in downloaders"
+    },
+    "VirtualAlloc": {
+        "category": "process",
+        "description": "allocates memory in a remote process; used in injection"
+    },
+    "VirtualProtect": {
+        "category": "process",
+        "description": "changes the protection on a region of memory for a remote process"
+    },
+    "WideCharToMultiByte": {
+        "category": "data",
+        "description": "converts a unicode string to ASCII"
+    },
+    "WinExec": {
+        "category": "process",
+        "description": "launches a program"
+    },
+    "Wow64DisableWow64FsRedirection": {
+        "category": "file",
+        "description": "disables file system redirection on WOW64 files; enables writing to System32 folder"
+    },
+    "WriteProcessMemory": {
+        "category": "process",
+        "description": "writes data to a process; used in injection"
+    },
+    "WSAStartup": {
+        "category": "network",
+        "description": "initializes Winsock functionality"
+    },
+    "ShowWindow": {
+        "category": "window",
+        "description": "sets a window's show state"
+    },
+    "CreateCompatibleDC": {
+        "category": "data",
+        "description": "creates a memory device context; used in spyware for screencaps"
+    },
+    "CreateCompatibleBitmap": {
+        "category": "data",
+        "description": "creates a bitmap compatible with a device context; used in spyware for screencaps"
+    },
+    "WriteFile": {
+        "category": "file",
+        "description": "writes a file to disk or I/O device"
+    },
+    "ReadFile": {
+        "category": "file",
+        "description": "reads a file from disk or I/O device"
+    },
+    "OpenFile": {
+        "category": "file",
+        "description": "creates, opens, or deletes a file"
+    },
+    "OpenFileMapping": {
+        "category": "file",
+        "description": "opens a named file mapping object"
+    },
+    "GetSystemTime": {
+        "category": "system",
+        "description": "gets the current system date and time in UTC; used in timestomping, delayed execution, anti-debugging"
+    },
+    "SetFileAttributes": {
+        "category": "file",
+        "description": "sets attributes for a file or directory"
+    },
+    "CreatPipe": {
+        "category": "data",
+        "description": "creates an anonymous pipe; used in backdoors"
+    },
+    "timeGetTime": {
+        "category": "system",
+        "description": "gets system time in milliseconds; used in anti-debugging"
+    },
+    "DebugActiveProcess": {
+        "category": "process",
+        "description": "enables a debugger to attach to an active process and debug it; used in anti-debugging"
+    }
+}

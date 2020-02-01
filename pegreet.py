@@ -5,6 +5,7 @@ import json
 import datetime
 import hashlib
 import math
+import re
 from collections import Counter
 try:
     import pefile # ext | req
@@ -36,6 +37,12 @@ WHITE = '\033[97m'
 GREY = '\033[90m'
 
 
+def dump_warnings():
+    warnings = pe.get_warnings()
+    if warnings:
+        print('\n---------- parsing warnings ----------')
+        for warning in warnings:
+            print('>',warning)
 
 def dump_file_info():
     print('\n---------- general info ----------')
@@ -122,7 +129,6 @@ def dump_header_info():
         print('{:<20}{:<}'.format('peid:', str(peid_result).strip('[\']') if peid_result else 'None'))
 
     # todo: dll characteristics
-    # todo: pefile's builtin warnings/suspicions
 
 
 def dump_sections():
@@ -188,7 +194,7 @@ def dump_exports():
     else:
         print('no exports')
 
-def dump_code(lines):
+def dump_disassembly(lines):
     print('\n---------- code ----------')
     if not capstone_imported:
         print('this option requires capstone')
@@ -205,6 +211,63 @@ def dump_code(lines):
         else:
             break
 
+def dump_strings(option):
+
+    raw = bytes(pe.__data__)
+
+    # many ways to get strings from raw
+    # i will try regex for both collection and categorization
+
+    # define all strings
+    strings_match = re.compile(b'[\x20-\x7f]{5,}')
+
+    categories = {
+        'url': {
+            'match': re.compile(b'(https?|smb|s?ftp|file|mailto|irc|data)://', re.IGNORECASE),
+            'list': []
+        },
+        'ip': {
+            'match': re.compile(b'(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])'),
+            'list': []
+        },
+        'registry': {
+            'match': re.compile(b'HKEY_'),
+            'list': []
+        },
+        'path': {
+            'match': re.compile(b'[a-z]:\\\\', re.IGNORECASE),
+            'list': []
+        },
+        'file': {
+            # not too sure how to match files without catching a bunch of garbage
+            'match': re.compile(b'.txt', re.IGNORECASE),
+            'list': []
+        }
+    }
+    uncategorized_list = []
+
+    strings_list = strings_match.findall(raw)
+    if strings_list:
+        for string_item in strings_list:
+            categorized = False
+            for catdata in categories.values():
+                if catdata['match'].match(string_item):
+                    catdata['list'].append(string_item.decode())
+                    categorized = True
+            if not categorized:
+                uncategorized_list.append(string_item.decode())
+    for catname, catdata in categories.items():
+        if catdata['list']:
+            print('\n-- ' + catname + ' --')
+            for string_item in catdata['list']:
+                print(string_item)
+    if option == 'a':
+        print('\n-- uncategorized --')
+        for string_item in uncategorized_list:
+            print(string_item)
+
+
+
 def sus_load():
     try:
         with open('annotation_dictionary.json') as fp:
@@ -216,7 +279,6 @@ def sus_load():
 def sus_check(string_to_check):
     # todo: explore a wildcard/regex approach
     # https://www.sciencedirect.com/science/article/pii/S016740481831246X
-    # also good for consolidating stuff like Ex/A/W suffixes
     # dict = [('a.*', 'asdf'),('b.*', 'qwer')]
     # def lookup(s, dict):
     # for pattern, value in dict:
@@ -265,9 +327,9 @@ if __name__=='__main__':
 
     parser.add_argument('file', help='the file\'s path')
     parser.add_argument('-i', help='print useful info', action='store_true')
-    #parser.add_argument('-s', help='print strings grouped by category', action='store_true')
-    parser.add_argument('-c', help='print first N lines of instructions from entry point', metavar='N', type=int)
-    parser.add_argument('-d', help='print dump info via pefile', action='store_true')
+    parser.add_argument('-s', help='print strings - [c]ategorized (default) or [a]ll', choices=['c','a'], default='c', const='c', nargs='?')
+    parser.add_argument('-d', help='disassemble a specified number instructions from entry point', metavar='N', type=int)
+    #parser.add_argument('-d', help='print dump info via pefile', action='store_true')
 
     args = parser.parse_args()
 
@@ -283,17 +345,18 @@ if __name__=='__main__':
         sus_dict = sus_load()
         peid_db = peid_load()
         dump_file_info()
+        dump_warnings() # where should this go?
         dump_header_info()
         dump_sections()
         dump_imports()
         dump_exports()
 
     # todo: add support for fireeye's floss and stringsifter
-    # if args.s:
-    #     dump_categoricalstrings()
+    if args.s:
+        dump_strings(args.s)
 
-    if args.c:
-        dump_code(args.c)
+    if args.d:
+        dump_disassembly(args.d)
 
     if args.d:
         pe.print_info()

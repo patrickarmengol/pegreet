@@ -1,8 +1,8 @@
 # PEgreet
 
-Let your sample introduce itself before you tear it apart.
+Greet your samples before you tear them apart.
 
-PEgreet is a tool that performs static analysis and feature extraction on Portable Executable files. It is meant to be the first step in analyzing a malware sample.
+PEgreet is a tool that performs static analysis and feature extraction on Portable Executable files. It should help with your first steps in analyzing a malware sample.
 
 ## Features
 
@@ -16,17 +16,18 @@ PEgreet is a tool that performs static analysis and feature extraction on Portab
 - dump info from __sections__
 - dump __imports and exports__
 - annotate __suspicious Windows API functions__
+- display file parsing __warnings__
 - __disassemble code__ from entry point
+- find __strings__
+- categorize __strings__
 
 #### In Progress
 
-- find __strings__
-- categorize __strings__
+- recognize __known malicious section names__
 
 #### To Do
 
 - annotate __suspicious entropy__ and __size mismatches__
-- recognize __known malicious section names__
 - extract __resources__
 - lookup on __VirusTotal__
 - lookup for __public sandbox reports__
@@ -43,6 +44,8 @@ PEgreet is a tool that performs static analysis and feature extraction on Portab
 
 ## Installation
 
+PEgreet uses Python 3.7
+
 #### Get PEgreet
 ```
 git clone https://github.com/patrickarmengol/PEgreet.git
@@ -54,7 +57,7 @@ cd PEgreet
 - [pefile](https://github.com/erocarrera/pefile)
 
 ```
-pip install --user -r requirements.txt
+pip install -r requirements.txt
 ```
 
 #### Install Optional Dependencies
@@ -64,14 +67,13 @@ pip install --user -r requirements.txt
 
 ```
 (install ssdeep using package manager)
-pip install --user -r optional-requirements.txt
+pip install -r optional-requirements.txt
 ```
 
 ## Usage
 
 ```
-python pegreet.py -h
-usage: pegreet.py [-h] [-i] [-c N] [-d] file
+usage: pegreet.py [-h] [-i] [-s [{c,a}]] [-d N] file
 
 a tool to perform static analysis and feature extraction on Portable Executable files
 
@@ -81,9 +83,8 @@ positional arguments:
 optional arguments:
   -h, --help  show this help message and exit
   -i          print useful info
-  -c N        print first N lines of instructions from entry point
-  -d          print dump info via pefile
-
+  -s [{c,a}]  print strings - [c]ategorized (default) or [a]ll
+  -d N        disassemble a specified number instructions from entry point
 ```
 
 ## Notes

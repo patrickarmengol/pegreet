@@ -44,7 +44,7 @@ PEgreet is a tool that performs static analysis and feature extraction on Portab
 
 ## Installation
 
-PEgreet uses Python 3.7
+PEgreet uses Python 3
 
 #### Get PEgreet
 ```

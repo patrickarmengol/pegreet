@@ -181,7 +181,7 @@
     },
     "GetKeyState": {
         "category": "system",
-        "description": "queries whether a particular key is being pressed;"
+        "description": "queries whether a particular key is being pressed; used in keyloggers"
     },
     "GetModuleFilename": {
         "category": "process",
@@ -542,5 +542,17 @@
     "DebugActiveProcess": {
         "category": "process",
         "description": "enables a debugger to attach to an active process and debug it; used in anti-debugging"
+    },
+    "LockResource": {
+        "category": "process",
+        "description": "obtains a pointer to resource in a PE file; used in droppers"
+    },
+    "Socket": {
+        "category": "network",
+        "description": "creates network socket; used in backdoors and C2"
+    },
+    "InternetConnect": {
+        "category": "network",
+        "description": "Opens an File Transfer Protocol (FTP) or HTTP session for a given site; used in backdoors and C2"
     }
 }

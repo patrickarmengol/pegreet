@@ -547,7 +547,7 @@
         "category": "process",
         "description": "obtains a pointer to resource in a PE file; used in droppers"
     },
-    "Socket": {
+    "socket": {
         "category": "network",
         "description": "creates network socket; used in backdoors and C2"
     },

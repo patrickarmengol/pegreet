@@ -1,0 +1,145 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pegreet"
+dynamic = ["version"]
+description = 'Library and CLI tool for parsing, validating, modifying, and updating `pyproject.toml` files. '
+readme = "README.md"
+requires-python = ">=3.7"
+license = "Apache-2.0 OR MIT"
+license-files = { paths = ["LICENSE-APACHE", "LICENSE-MIT"] }
+keywords = []
+authors = [
+  { name = "Patrick Armengol", email = "patrickarmengol@protonmail.com" },
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.7",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+]
+dependencies = [
+  "typer[all]",
+  "pefile",
+  "capstone",
+  "ppdeep",
+]
+
+[project.scripts]
+pegreet = 'pegreet.cli:app'
+
+[project.urls]
+Documentation = "https://github.com/patrickarmengol/pegreet#readme"
+Issues = "https://github.com/patrickarmengol/pegreet/issues"
+Source = "https://github.com/patrickarmengol/pegreet"
+
+[tool.hatch.version]
+path = "src/pegreet/__about__.py"
+
+[tool.hatch.envs.default]
+dependencies = [
+  "coverage[toml]>=6.5",
+  "pytest",
+]
+[tool.hatch.envs.default.scripts]
+test = "pytest {args:tests}"
+test-cov = "coverage run -m pytest {args:tests}"
+cov-report = [
+  "- coverage combine",
+  "coverage report",
+]
+cov = [
+  "test-cov",
+  "cov-report",
+]
+
+[[tool.hatch.envs.all.matrix]]
+python = ["3.7", "3.8", "3.9", "3.10", "3.11"]
+
+[tool.hatch.envs.lint]
+detached = true
+dependencies = [
+  "autopep8",
+  "pyright",
+  "ruff",
+]
+[tool.hatch.envs.lint.scripts]
+typing = "pyright"
+style = [
+  "ruff {args:.}",
+  "autopep8 --diff {args:.}",
+]
+fmt = [
+  "autopep8 --in-place {args:.}",
+  "ruff --fix {args:.}",
+  "style",
+]
+all = [
+  "style",
+  "typing",
+]
+
+[tool.autopep8]
+max_line_length = 120
+
+[tool.pyright]
+include = ["src/pegreet", "tests"]
+exclude = [
+    "**/__pycache__",
+]
+typeCheckingMode = "strict"
+
+[tool.ruff]
+target-version = "py37"
+line-length = 120
+select = ["A", "B", "C", "E", "F", "FBT", "I", "N", "Q", "RUF", "S", "T", "UP", "W", "YTT"]
+ignore = [
+  # Allow non-abstract empty methods in abstract base classes
+  "B027",
+  # Ignore McCabe complexity
+  "C901",
+  # Allow boolean positional values in function calls, like `dict.get(... True)`
+  "FBT003",
+  # Ignore checks for possible passwords
+  "S105", "S106", "S107",
+]
+unfixable = [
+  # Don't touch unused imports
+  "F401",
+]
+
+[tool.ruff.isort]
+known-first-party = ["pegreet"]
+
+[tool.ruff.flake8-tidy-imports]
+ban-relative-imports = "all"
+
+[tool.ruff.per-file-ignores]
+# Tests can use relative imports and assertions
+"tests/**/*" = ["I252", "S101"]
+
+[tool.coverage.run]
+source_pkgs = ["pegreet", "tests"]
+branch = true
+parallel = true
+omit = [
+  "src/pegreet/__about__.py",
+]
+
+[tool.coverage.paths]
+pegreet = ["src/pegreet", "*/pegreet/src/pegreet"]
+tests = ["tests", "*/pegreet/tests"]
+
+[tool.coverage.report]
+exclude_lines = [
+  "no cov",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+]

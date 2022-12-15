@@ -50,7 +50,7 @@ def info(pe_file: pefile.PE | Path) -> dict[str, Any]:
 
     d['md5'] = hashlib.md5(raw).hexdigest()
     d['sha1'] = hashlib.sha1(raw).hexdigest()
-    d['sha25'] = hashlib.sha256(raw).hexdigest()
+    d['sha256'] = hashlib.sha256(raw).hexdigest()
     d['imphash'] = pe.get_imphash()
 
     d['ssdeep'] = ppdeep.hash(raw)

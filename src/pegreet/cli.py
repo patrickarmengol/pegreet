@@ -20,7 +20,8 @@ def info(
     """
     pe = pegreet.inout.load(filepath)
     data = pegreet.fetch.info(pe)
-    print(data)
+    # print(data)
+    print(pegreet.inout.pretty_info(data))
 
 
 @app.command()

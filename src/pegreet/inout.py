@@ -53,6 +53,7 @@ def pretty_info(info_dict: dict[str, Any]) -> str:
         for entry in info_dict['imports']
     )
     imports_wall = f"""
+--- imports ---
 {imports_info}
 """
 

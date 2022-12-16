@@ -65,3 +65,7 @@ def pretty_info(info_dict: dict[str, Any]) -> str:
 
     wall = file_wall + headers_wall + sections_wall + imports_wall + exports_wall
     return wall
+
+
+def pretty_strings(string_dict: dict[str, list[str]], show_uncategorized: bool = False) -> str:
+    return '\n\n'.join(f'--- {cn} ---' + '\n' + '\n'.join(cl) for cn, cl in string_dict.items() if cn != 'uncategorized' or (cn == 'uncategorized' and show_uncategorized))

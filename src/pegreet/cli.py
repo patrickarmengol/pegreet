@@ -27,12 +27,14 @@ def info(
 @app.command()
 def strings(
     filepath: Path = typer.Argument(..., help='path to PE file to analyze'),
-    categorized: bool = typer.Option(False, help='group strings into categories'),
+    show_uncategorized: bool = typer.Option(False, help='also show uncategorized strings'),
 ) -> None:
     """
     print strings
     """
-    pass
+    pe = pegreet.inout.load(filepath)
+    sdata = pegreet.fetch.find_strings(pe)
+    print(pegreet.inout.pretty_strings(sdata, show_uncategorized=show_uncategorized))
 
 
 @app.command()

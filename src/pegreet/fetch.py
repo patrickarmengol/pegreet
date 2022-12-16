@@ -2,6 +2,7 @@ import datetime
 import hashlib
 import json
 import math
+import re
 from collections import Counter
 from pathlib import Path
 from typing import Any
@@ -13,17 +14,13 @@ import ppdeep
 import pegreet.inout
 
 
-def info(pe_file: pefile.PE | Path) -> dict[str, Any]:
-    if isinstance(pe_file, Path):
-        pe = pegreet.inout.load(pe_file)
-    elif isinstance(pe_file, pefile.PE):
-        pe = pe_file
-    else:
-        raise Exception('invalid argument pe_file; must be pefile.PE or pathlib.Path')
+def info(pe: pefile.PE) -> dict[str, Any]:
+    if not isinstance(pe, pefile.PE):
+        raise Exception('invalid argument pe_file; must be pefile.PE')
 
     # init return dict
-    d: dict[str, Any] = dict()  # TODO: initialize dict here to pop defaults
-    raw = bytes(pe.__data__)  # TODO: how do i avoid an error here
+    d: dict[str, Any] = dict()  # TODO: initialize dict here to populate defaults
+    raw = bytes(pe.__data__)
 
     # load helper data here
 
@@ -44,7 +41,7 @@ def info(pe_file: pefile.PE | Path) -> dict[str, Any]:
 
     # --- file ---
 
-    # d['filename']
+    # d['filename']  # TODO: would need to pass this as an argument
 
     d['size'] = len(raw)
 
@@ -152,5 +149,40 @@ def info(pe_file: pefile.PE | Path) -> dict[str, Any]:
     return d
 
 
-def find_strings() -> list[str]:
-    pass
+def find_strings(pe: pefile.PE) -> dict[str, list[str]]:
+    raw = bytes(pe.__data__)
+
+    # many ways to get strings from raw
+    # i will try regex for both collection and categorization
+
+    string_pattern = re.compile(rb'[\x20-\x7f]{5,}')
+
+    cat_patterns = {
+        'url': re.compile(b'(https?|smb|s?ftp|file|mailto|irc|data)://', re.IGNORECASE),
+        'ip': re.compile(
+            b'(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])'),
+        'registry': re.compile(b'HKEY_'),
+        'path': re.compile(b'[a-z]:\\\\', re.IGNORECASE),
+        'file': re.compile(b'.txt', re.IGNORECASE),
+    }
+
+    cat_strings: dict[str, list[str]] = {
+        'url': [],
+        'ip': [],
+        'registry': [],
+        'path': [],
+        'file': [],
+        'uncategorized': [],
+    }
+
+    strings_list = string_pattern.findall(raw)
+    for string_item in strings_list:
+        categorized = False
+        for cn, cp in cat_patterns.items():
+            if cp.match(string_item):
+                cat_strings[cn].append(string_item.decode())
+                categorized = True
+        if not categorized:  # can't for-else since all patterns should be tested for each str
+            cat_strings['uncategorized'].append(string_item.decode())
+
+    return cat_strings

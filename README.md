@@ -1,8 +1,23 @@
-# PEgreet
+# pegreet
 
-Greet your samples before you tear them apart.
+[![PyPI - Version](https://img.shields.io/pypi/v/pegreet.svg)](https://pypi.org/project/pegreet)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pegreet.svg)](https://pypi.org/project/pegreet)
 
-PEgreet is a tool that performs static analysis and feature extraction on Portable Executable files. It should help with your first steps in analyzing a malware sample.
+
+Greet your malware samples before you tear them apart.
+
+`pegreet` is a tool that performs static analysis and feature extraction on Portable Executable files. As a cli app, it should help with first steps in malware analysis / reverse engineering. As a library, it can be used to extract useful information from samples in bulk for use in exploratory data analysis or building malware classification models. 
+
+---
+
+**Table of Contents**
+
+- [Features](#features)
+- [Screenshots](#screenshots)
+- [Installation](#installation)
+- [Resources](#resources)
+- [Notes](#notes)
+- [License](#license)
 
 ## Features
 
@@ -21,12 +36,9 @@ PEgreet is a tool that performs static analysis and feature extraction on Portab
 - find __strings__
 - categorize __strings__
 
-#### In Progress
-
-- recognize __known malicious section names__
-
 #### To Do
 
+- recognize __known malicious section names__
 - annotate __suspicious entropy__ and __size mismatches__
 - extract __resources__
 - lookup on __VirusTotal__
@@ -36,62 +48,54 @@ PEgreet is a tool that performs static analysis and feature extraction on Portab
 - sort __strings__ with [StringSifter](https://github.com/fireeye/stringsifter)
 - extract __obfuscated strings__ with [FLOSS](https://github.com/fireeye/flare-floss)
 - __custom output__ (csv, json, markdown)
-- __modular design__
+
 
 ## Screenshots
 
 ![i](/media/i.png?raw=true)
 
+
 ## Installation
 
-PEgreet uses Python 3
+### as a module
 
-#### Get PEgreet
-```
-git clone https://github.com/patrickarmengol/PEgreet.git
-cd PEgreet
-```
-
-#### Install Required Dependencies
-
-- [pefile](https://github.com/erocarrera/pefile)
-
-```
-pip install -r requirements.txt
+```console
+<virtual environment shenanigans>
+pip install pegreet
 ```
 
-#### Install Optional Dependencies
+### as a cli app
 
-- [ssdeep](https://ssdeep-project.github.io/ssdeep/index.html) + [python-ssdeep](https://github.com/DinoTools/python-ssdeep) for generating ssdeep hashes
-- [capstone](http://www.capstone-engine.org/) for code disassembly
+```console
+pipx install pegreet
+```
 
-```
-(install ssdeep using package manager)
-pip install -r optional-requirements.txt
-```
+---
 
 ## Usage
 
 ```
-usage: pegreet.py [-h] [-i] [-s [{c,a}]] [-d N] file
+$ pegreet --help
 
-a tool to perform static analysis and feature extraction on Portable Executable files
+ Usage: pegreet [OPTIONS] COMMAND [ARGS]...
 
-positional arguments:
-  file        the file's path
-
-optional arguments:
-  -h, --help  show this help message and exit
-  -i          print useful info
-  -s [{c,a}]  print strings - [c]ategorized (default) or [a]ll
-  -d N        disassemble a specified number instructions from entry point
+╭─ Options ───────────────────────────────────────────╮
+│ --help                        Show this message and │
+│                               exit.                 │
+╰─────────────────────────────────────────────────────╯
+╭─ Commands ──────────────────────────────────────────╮
+│ disassemble  disassemble a specified number         │
+│              instructions from entry point          │
+│ info         print useful info                      │
+│ strings      print strings                          │
+╰─────────────────────────────────────────────────────╯
 ```
 
 ## Notes
 
-I started this project in an attempt to learn about PE files and feature extraction for use in malware data science.
+I started this project in 2020 in an attempt to learn about PE files and feature extraction for use in malware data science.
 
-There are many other (better) tools available that implement similar functionality (see below). What I tried to do with PEgreet is to focus on only the features that are useful to malware analysis to make it easier to digest the information. PEgreet also provides annotations for suspicious indicators that can be used as jumping points for an investigation.
+There are many other (better) tools available that implement similar functionality (see below). What I tried to do with `pegreet` is to focus on only the features that are useful to malware analysis to make it easier to digest the information. `pegreet` also provides annotations for suspicious indicators that can be used as jumping points for an investigation.
 
 The [pefile](https://github.com/erocarrera/pefile) library was used extensively to implement the parsing of PE files. I would like to explore using the [LIEF](https://github.com/lief-project/LIEF) project instead as it supports multiple executable formats and it was used in the [EMBER](https://github.com/endgameinc/ember) dataset. Maybe I'll follow this project up with an 'ELFgreet'.
 
@@ -121,3 +125,11 @@ The [pefile](https://github.com/erocarrera/pefile) library was used extensively 
 - [PE format walkthrough](https://drive.google.com/file/d/0B3_wGJkuWLytQmc2di0wajB1Xzg/view) - overlay of PE format on raw hex
 - [PE Format](https://docs.microsoft.com/en-us/windows/win32/debug/pe-format) - PE documentation by MS
 - [An In-Depth Look into the Win32 Portable Executable File Format Part 1](https://docs.microsoft.com/en-us/archive/msdn-magazine/2002/february/inside-windows-win32-portable-executable-file-format-in-detail) and [Part 2](https://docs.microsoft.com/en-us/archive/msdn-magazine/2002/march/inside-windows-an-in-depth-look-into-the-win32-portable-executable-file-format-part-2) - writeups by MS
+
+
+## License
+
+`pegreet` is distributed under the terms of any of the following licenses:
+
+- [Apache-2.0](https://spdx.org/licenses/Apache-2.0.html)
+- [MIT](https://spdx.org/licenses/MIT.html)

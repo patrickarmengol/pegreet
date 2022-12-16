@@ -45,4 +45,6 @@ def disassemble(
     """
     disassemble a specified number instructions from entry point
     """
-    pass
+    pe = pegreet.inout.load(filepath)
+    ddata = pegreet.fetch.disasm(pe, num_instructions)
+    print(ddata)

@@ -7,6 +7,7 @@ from collections import Counter
 from pathlib import Path
 from typing import Any
 
+import capstone
 import pefile
 import peutils
 import ppdeep
@@ -186,3 +187,21 @@ def find_strings(pe: pefile.PE) -> dict[str, list[str]]:
             cat_strings['uncategorized'].append(string_item.decode())
 
     return cat_strings
+
+
+def disasm(pe: pefile.PE, num_lines: int) -> str:
+    # TODO: support custom addr
+
+    ep = pe.OPTIONAL_HEADER.AddressOfEntryPoint
+    epa = ep + pe.OPTIONAL_HEADER.ImageBase
+    data = pe.get_memory_mapped_image()[ep:]
+    # TODO: make this dynamic based on machine type and optional magic value
+    disassembler = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
+
+    dlines = ''
+    for index, instruction in enumerate(disassembler.disasm(data, epa)):
+        if index < num_lines:
+            dlines += f'0x{instruction.address:<12x}{instruction.mnemonic:<10}{instruction.op_str:<20}\n'
+        else:
+            break
+    return dlines

@@ -74,6 +74,26 @@ pipx install pegreet
 
 ## Usage
 
+### as a module
+```
+from pathlib import Path
+import pegreet
+
+pe = pegreet.load(Path('data/samples/petya.exe'))
+
+info_data = pegreet.info(pe)
+print(info_data)
+print(pegreet.pretty_info(info_data))
+
+strings_data = pegreet.find_strings(pe)
+print(strings_data)
+print(pegreet.pretty_strings(strings_data))
+
+print(pegreet.disasm(pe, num_lines=40))
+```
+
+
+### as a cli app
 ```
 $ pegreet --help
 
@@ -89,6 +109,18 @@ $ pegreet --help
 │ info         print useful info                      │
 │ strings      print strings                          │
 ╰─────────────────────────────────────────────────────╯
+
+
+$ pegreet info data/samples/petya.exe
+...
+
+
+$ pegreet strings --show-uncategorized data/samples/petya.exe
+...
+
+
+$ pegreet disassemble data/samples/petya.exe 40
+...
 ```
 
 ## Notes

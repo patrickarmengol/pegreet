@@ -17,7 +17,7 @@ import pegreet.inout
 
 def info(pe: pefile.PE) -> dict[str, Any]:
     if not isinstance(pe, pefile.PE):
-        raise Exception('invalid argument pe_file; must be pefile.PE')
+        raise Exception('invalid argument pe; must be pefile.PE')
 
     # init return dict
     d: dict[str, Any] = dict()  # TODO: initialize dict here to populate defaults
